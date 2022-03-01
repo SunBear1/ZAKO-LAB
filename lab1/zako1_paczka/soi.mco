@@ -1,0 +1,64 @@
+[Microcode]
+;uAR |Label |ALU   |S1    |S2    |Dest  |ExtIR |Const |JCond |Adr   |Mem   |MAdr  |MDest |Regs
+0000 |Start |      |      |      |      |      |      |      |      |RW    |PC    |IR    |      
+0001 |      |ADD   |PC    |Const |PC    |      |4     |Jump1 |      |      |      |      |RR    
+0002 |PUTI  |S2    |      |IR    |C     |Word  |      |      |      |      |MAR   |      |      
+0003 |      |      |      |      |      |      |      |True  |Start |      |      |      |WF1   
+0004 |LDWADD|ADD   |A     |IR    |MAR   |Word  |      |      |      |      |      |      |      
+0005 |      |      |      |      |      |      |      |      |      |RW    |MAR   |MDR   |      
+0006 |      |S1    |MDR   |      |C     |      |      |      |      |      |      |      |      
+0007 |      |      |      |      |      |      |      |True  |Start |      |      |      |WF2   
+0008 |STWADD|ADD   |A     |IR    |MAR   |Word  |      |      |      |      |      |      |      
+0009 |      |S2    |      |B     |MDR   |      |      |      |      |      |      |      |      
+000A |      |      |      |      |      |      |      |True  |Start |WW    |MAR   |MDR   |      
+000B |PUT0R3R2|S2    |      |B     |C     |Word  |      |      |      |      |      |      |      
+000C |      |S2    |      |Const |C     |Word  |0     |      |      |      |      |      |WF1   
+000D |      |S2    |      |Const |C     |Word  |0     |      |      |      |      |      |WF3   
+000E |      |      |      |      |      |      |      |True  |Start |      |      |      |WF4   
+000F |PUTI0R4R1|S1    |Const |      |C     |Word  |0     |      |      |      |      |      |      
+0010 |      |      |      |      |      |      |      |      |      |      |      |      |WF1   
+0011 |      |      |      |      |      |      |      |True  |Start |      |      |      |WF2   
+0012 |R2LOOP|ADD   |A     |Const |TMP1  |Word  |4     |      |      |      |      |      |      
+0013 |      |SUB   |TMP1  |Const |      |Word  |60    |GT    |Start |      |      |      |      
+0014 |      |S1    |TMP1  |      |C     |Word  |      |      |      |      |      |      |      
+0015 |      |S1    |IR    |      |PC    |Word  |      |True  |Start |      |      |      |WF1   
+0016 |AMULR5OPS|MUL   |A     |B     |TMP1  |Word  |      |      |      |      |      |      |RBF3  
+0017 |      |ADD   |TMP1  |B     |C     |      |      |      |      |      |      |      |RAF4  
+0018 |      |ADD   |A     |Const |TMP1  |Word  |4     |      |      |      |      |      |WF3   
+0019 |      |SUB   |TMP1  |Const |C     |Word  |60    |LE    |AMULR5OPS1|      |      |      |      
+001A |      |S1    |Const |      |TMP1  |Word  |0     |      |      |      |      |      |      
+001B |AMULR5OPS1|S1    |TMP1  |      |C     |Word  |      |      |      |      |      |      |      
+001C |      |      |      |      |      |      |      |True  |Start |      |      |      |WF4   
+001D |R1LPR4OPS|RSUB  |Const |B     |TMP1  |Word  |4     |GE    |R1LPR4OPS1|      |      |      |      
+001E |      |S1    |Const |      |TMP1  |Word  |60    |      |      |      |      |      |      
+001F |R1LPR4OPS1|S1    |TMP1  |      |C     |Word  |      |      |      |      |      |      |      
+0020 |      |ADD   |A     |Const |TMP1  |Word  |4     |      |      |      |      |      |WF2   
+0021 |      |SUB   |TMP1  |Const |      |      |124   |GT    |Start |      |      |      |      
+0022 |      |S1    |TMP1  |      |C     |Word  |      |      |      |      |      |      |      
+0023 |      |S1    |IR    |      |PC    |Word  |      |True  |Start |      |      |      |WF1   
+0024 |LDST  |ADD   |A     |Const |MAR   |Word  |512   |      |      |      |      |      |      
+0025 |      |ADD   |Const |B     |MAR   |Word  |640   |      |      |RW    |MAR   |MDR   |      
+0026 |      |S1    |MDR   |      |C     |      |      |      |      |WW    |MAR   |MDR   |      
+0027 |      |      |      |      |      |      |      |True  |Start |      |      |      |WF3   
+0028 |LDLD  |ADD   |A     |Const |MAR   |Word  |640   |      |      |      |      |      |      
+0029 |      |ADD   |Const |B     |MAR   |Word  |704   |      |      |RW    |MAR   |MDR   |      
+002A |      |S1    |MDR   |      |C     |      |      |      |      |RW    |MAR   |MDR   |      
+002B |      |S1    |MDR   |      |C     |      |      |      |      |      |      |      |WF3   
+002C |      |      |      |      |      |      |      |True  |Start |      |      |      |WF4   
+002D |R5R2R9R10|      |      |      |      |      |      |      |      |      |      |      |      
+002E |R1R4R7|      |      |      |      |      |      |      |      |      |      |      |      
+
+[Jump Tables]
+;Opcode  |Jump Table 1 |Jump Table 2 
+NOP      |Start        |             
+PUTI     |PUTI         |             
+PUT0R3R2 |PUT0R3R2     |             
+LDWADD   |LDWADD       |             
+STWADD   |STWADD       |             
+PUTI0R4R1|PUTI0R4R1    |             
+R2LOOP   |R2LOOP       |             
+R1LPR4OPS|R1LPR4OPS    |             
+AMULR5OPS|AMULR5OPS    |             
+LDST     |LDST         |             
+LDLD     |LDLD         |             
+
