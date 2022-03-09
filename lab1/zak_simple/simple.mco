@@ -1,0 +1,35 @@
+[Microcode]
+;uAR |Label |ALU   |S1    |S2    |Dest  |ExtIR |Const |JCond |Adr   |Mem   |MAdr  |MDest |Regs
+0000 |Start |      |      |      |      |      |      |      |      |RW    |PC    |IR    |      
+0001 |      |ADD   |PC    |Const |PC    |      |4     |Jump1 |      |      |      |      |RR    
+0002 |Put   |ADD   |IR    |Const |C     |Word  |0     |      |      |      |      |      |      
+0003 |      |      |      |      |      |      |      |True  |Start |      |      |      |WF1   
+0004 |Add   |ADD   |A     |B     |C     |Word  |      |      |      |      |      |      |      
+0005 |      |      |      |      |      |      |      |True  |Start |      |      |      |WF3   
+0006 |Load  |S1    |IR    |      |MAR   |Word  |      |      |      |      |      |      |      
+0007 |      |      |      |      |      |      |      |      |      |RW    |MAR   |MDR   |      
+0008 |      |S1    |MDR   |      |C     |Word  |      |      |      |      |      |      |      
+0009 |      |      |      |      |      |      |      |True  |Start |      |      |      |WF1   
+000A |Store |S1    |IR    |      |MAR   |Word  |      |      |      |      |      |      |      
+000B |      |S1    |A     |      |MDR   |Word  |      |      |      |      |      |      |      
+000C |      |      |      |      |      |      |      |True  |Start |WW    |MAR   |MDR   |      
+000D |Jmp   |ADD   |PC    |IR    |PC    |Word  |      |True  |Start |      |      |      |      
+
+[Jump Tables]
+;Opcode  |Jump Table 1 |Jump Table 2 
+LOADimm  |Load         |             
+STOREimm |Store        |             
+ADDreg   |Add          |             
+ORreg    |             |             
+JMPrel   |             |             
+PUTimm   |Put          |             
+NOP      |             |             
+NOP      |             |             
+NOP      |             |             
+NOP      |             |             
+NOP      |             |             
+NOP      |             |             
+NOP      |             |             
+NOP      |             |             
+NOP      |             |             
+

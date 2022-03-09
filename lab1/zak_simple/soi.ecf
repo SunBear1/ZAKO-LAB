@@ -1,0 +1,46 @@
+[General Options]
+AluDivAndMult=yes
+CompleteComparatorSet=yes
+CompleteSignExtend=yes
+CompleteMemoryOperations=yes
+DataMemorySize=1024
+CodeMemorySize=512
+
+[Instruction Encoding]
+NumberOfOpcodes=64
+NumberOfRegisters=32
+
+[Instructions]
+;Opcode  |Type|Mnemonic Representation
+NOP      | R  |
+PUTI     | I  |r1, i
+PUT0R3R2 | R  |r1,r2,r3,r4
+LDWADD   | I  |r1, r2, i
+STWADD   | I  |r1, r2, i
+PUTI0R4R1| R  |r1,r2
+R2LOOP   | I  |r1,i
+R1LPR4OPS| I  |r1,r2,i
+AMULR5OPS| R  |r1,r2,r3,r4
+LDST     | R  |r1,r2,r3
+LDLD     | R  |r1,r2,r3,r4
+
+[Microprogrammed Architecture]
+MicroCodeSize=256
+ConstantSize=12
+NumberOfJumpTables=2
+RRFormalA=1
+RRFormalB=2
+RAF=[3,4]
+RBF=[3]
+WF=[1,2,3,4]
+RAA=no
+RBA=no
+WA=no
+
+[Extra Registers]
+TMP1
+TMP2
+
+[Pipelined Architecture]
+BlindRegisterFileReading=yes
+OnlyStallWhenNecessary=yes
