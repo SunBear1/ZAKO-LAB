@@ -1,0 +1,83 @@
+[Microcode]
+;uAR |Label |ALU   |S1    |S2    |Dest  |ExtIR |Const |JCond |Adr   |Mem   |MAdr  |MDest |Regs
+0000 |Start |      |      |      |      |      |      |      |      |RW    |PC    |IR    |      
+0001 |      |ADD   |PC    |Const |PC    |      |4     |Jump1 |      |      |      |      |      
+0002 |Put   |ADD   |IR    |Const |C     |Word  |0     |      |      |      |      |      |      
+0003 |      |      |      |      |      |      |      |True  |Start |      |      |      |WF1   
+0004 |ADDI  |      |      |      |      |      |      |      |      |      |      |      |RR    
+0005 |      |ADD   |A     |IR    |C     |Word  |      |      |      |      |      |      |      
+0006 |      |      |      |      |      |      |      |True  |Start |      |      |      |WF2   
+0007 |ANDI  |      |      |      |      |      |      |      |      |      |      |      |RR    
+0008 |      |AND   |A     |IR    |C     |Word  |      |      |      |      |      |      |      
+0009 |      |      |      |      |      |      |      |True  |Start |      |      |      |WF2   
+000A |LDW   |      |      |      |      |      |      |      |      |      |      |      |RR    
+000B |      |ADD   |A     |IR    |MAR   |Word  |      |      |      |      |      |      |      
+000C |      |      |      |      |      |      |      |      |      |RW    |MAR   |MDR   |      
+000D |      |S1    |MDR   |      |C     |      |      |      |      |      |      |      |      
+000E |      |      |      |      |      |      |      |True  |Start |      |      |      |WF2   
+000F |STW   |      |      |      |      |      |      |      |      |      |      |      |RR    
+0010 |      |S2    |      |B     |MDR   |      |      |      |      |      |      |      |      
+0011 |      |ADD   |A     |IR    |MAR   |Word  |      |      |      |      |      |      |      
+0012 |      |      |      |      |      |      |      |True  |Start |WW    |MAR   |MDR   |      
+0013 |MUL   |      |      |      |      |      |      |      |      |      |      |      |RR    
+0014 |      |MUL   |A     |B     |C     |      |      |      |      |      |      |      |      
+0015 |      |      |      |      |      |      |      |True  |Start |      |      |      |WF3   
+0016 |ADD   |      |      |      |      |      |      |      |      |      |      |      |RR    
+0017 |      |ADD   |A     |B     |C     |      |      |      |      |      |      |      |      
+0018 |      |      |      |      |      |      |      |True  |Start |      |      |      |WF3   
+0019 |SUBI  |      |      |      |      |      |      |      |      |      |      |      |RR    
+001A |      |SUB   |A     |IR    |C     |Word  |      |      |      |      |      |      |      
+001B |      |      |      |      |      |      |      |True  |Start |      |      |      |WF2   
+001C |BRLE  |      |      |      |      |      |      |      |      |      |      |      |RR    
+001D |      |S2    |      |B     |TMP1  |      |      |GT    |Start |      |      |      |      
+001E |      |ADD   |PC    |IR    |PC    |Word  |      |True  |Start |      |      |      |      
+001F |BRLT  |      |      |      |      |      |      |      |      |      |      |      |RR    
+0020 |      |S2    |      |B     |TMP1  |      |      |GE    |Start |      |      |      |      
+0021 |      |ADD   |PC    |IR    |PC    |Word  |      |True  |Start |      |      |      |      
+0022 |BRGE  |      |      |      |      |      |      |      |      |      |      |      |RR    
+0023 |      |S2    |      |B     |TMP1  |      |      |LT    |Start |      |      |      |      
+0024 |      |ADD   |PC    |IR    |PC    |Word  |      |True  |Start |      |      |      |      
+0025 |MULI  |      |      |      |      |      |      |      |      |      |      |      |RR    
+0026 |      |MUL   |A     |IR    |C     |Word  |      |      |      |      |      |      |      
+0027 |      |      |      |      |      |      |      |True  |Start |      |      |      |WF2   
+0028 |SUB   |      |      |      |      |      |      |      |      |      |      |      |RR    
+0029 |      |SUB   |A     |B     |C     |      |      |      |      |      |      |      |      
+002A |      |      |      |      |      |      |      |True  |Start |      |      |      |WF3   
+
+[Jump Tables]
+;Opcode  |Jump Table 1 |Jump Table 2 
+NOP      |             |             
+LDB      |             |             
+LDH      |             |             
+LDW      |LDW          |             
+STB      |             |             
+STH      |             |             
+STW      |STW          |             
+ADD      |ADD          |             
+SUB      |SUB          |             
+MUL      |MUL          |             
+DIV      |             |             
+AND      |             |             
+OR       |             |             
+XOR      |             |             
+SLL      |             |             
+SRL      |             |             
+SRA      |             |             
+ADDI     |ADDI         |             
+SUBI     |SUBI         |             
+MULI     |MULI         |             
+DIVI     |             |             
+ANDI     |ANDI         |             
+ORI      |             |             
+XORI     |             |             
+SLLI     |             |             
+SRLI     |             |             
+SRAI     |             |             
+LIH      |             |             
+BRZ      |             |             
+BRNZ     |             |             
+BRGT     |             |             
+BRGE     |BRGE         |             
+BRLT     |BRLT         |             
+BRLE     |BRLE         |             
+

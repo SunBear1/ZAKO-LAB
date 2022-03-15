@@ -1,0 +1,8 @@
+proj			mem	delay	forwarding	ops
+pipe2_nomod		2	n		n			15527
+pipe2_1			2	2		y			9763
+pipe2_2			2	n		n			9187
+pipe2_3			2	n		n			7612
+pipe2_3			2	n		y			7582
+pipe2_4			2	2		n			
+pipe2_4			2	2		y			5585
