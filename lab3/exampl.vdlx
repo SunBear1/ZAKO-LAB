@@ -1,0 +1,42 @@
+
+/*
+ word - 4B, hword - 2B, byte - 1B
+*/
+	.data
+:mat1 .word
+	1,2,3,4,
+	5,6,7,8,
+	9,10,11,12,
+	13,14,15,16
+:help .space 8
+:delka .word 4
+/* start programu */
+	.text
+:start
+/* L O O P Y */
+:prvni
+:rzed
+
+addi r12, r12, 4
+lw r7, 32(r12)
+lw r8, 48(r12)
+nop
+nop;;
+
+beqz r14, konec
+addi r11, r11, 4 
+sw wynik(r13), r22
+nop
+mult r18, r4, r8;;
+
+bnez r10, rzed
+subi r10, r10, 1
+nop nop nop;;
+
+beqz r10, prvni
+nop nop nop nop;;
+
+nop nop nop nop nop;;
+
+:konec
+trap nop nop nop trap;; 
